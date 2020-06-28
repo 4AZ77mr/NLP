@@ -1,29 +1,56 @@
-# 自然言語処理
-人が日常的にコミュニケーションを取るために使っている自然言語をコンピュータに処理させる技術である．
+# NLP
+研究で使用していた非機能要件自動分類リポジトリ．
+自然言語を扱っているので，自然言語処理がわからない人は，[NLP.md](NLP.md)を参照してください．
 
-機械学習などでは，話し言葉や書き言葉，多種多様の記号などの文字や言葉の処理が容易ではないため，処理しやすくするために前処理が必要になる．
-## 自然言語処理の前処理
-### テキストのクリーニング
-テキストのクリーニングでは，テキスト内に含まれるノイズを除去する．ノイズとはHTMLのタグや記号などのことであり，タスクの結果に悪影響を及ぼす原因となるため除去する必要がある．
+JIS25010に基づきラベル付けしたデータセット(dataset.csv)を用いて，機械学習により分類を行う．
+preprocessing.pyは形態素解析を行っていて，それ以外の処理をmain.pyで行っています．
 
-### 文章の単語分割
-機械学習では入力を単語レベルで扱うため，単語に分割する必要がある．
-<img width="570" alt="mecab" src="https://user-images.githubusercontent.com/62409783/85364452-1c071180-b55e-11ea-8b2b-3a142b61129c.png">
+## 環境
+#### 実行環境
+* anaconda3-5.3.1
+#### パッケージ
+* libsvm
+* gensim 3.6.0
+* mecab 0.996.2
+    * mecab-ipadic-NEologd
 
-### 単語の正規化
-単語の正規化では，文字種の統一や数字の置き換え等を行う．
-#### 文字種の統一
-アルファベットの大文字を小文字に変換，および半角文字を全角文字に変換する処理を行うことで，単語を文字種の区別なく同一の単語として扱うことができる．
+## インストール方法
+#### LIBSVM
+$HOME/buildのようなディレクトリを作り，そこに移動し，以下のコマンドを実行．
+```bash
+wget http://www.csie.ntu.edu.tw/~cjlin/cgi-bin/libsvm.cgi?+http://www.csie.ntu.edu.tw/~cjlin/libsvm+tar.gz -O libsvm.tgz
+```
+解凍
+```bash
+tar zxvf libsvm.tgz
+```
+生成されたディレクトリに移動し，以下のコマンドでビルドし終了．
+```bash
+make
+```
 
-例）ﾕｰｻﾞ　→　ユーザ
+#### gensim
+```bash
+pip install gensim
+```
 
-#### 数字の置換
-数値表現は多様で出現頻度は高いが，言語処理のタスクにはほとんど影響しないため置換する必要がある．
+## 使い方
+```bash
+git clone git@github.com:4AZ77mr/NLP.git
+cd NLP
+python main.py
+```
+### 注意点
+並列処理をしているので，main.pyの最終行辺りにある **processes=** の値を自分の環境に合わせて設定してください．
 
-例）2020年　→　0年
+## 参考文献
+LIBSVM github(https://github.com/cjlin1/libsvm)
 
-### ストップワードの除去
-ストップワードとは，自然言語処理をする際に一般的で役に立たない等の理由で処理の対象外とする単語のことである．助詞や助動詞などは出現頻度は高いが役に立たず，計算や性能に悪影響を及ぼすことがあるため除去する必要がある．
+LIBSVM使用方法(https://data-science.gr.jp/implementation/iml_libsvm_usage.html)
 
-### 単語のベクトル表現
-文字列は可変長で扱いにくい，類似度の計算がしにくい等の理由から，文字列からベクトルに変換を行う．
+MeCabインストールMac編(https://qiita.com/paulxll/items/72a2bea9b1d1486ca751)
+
+MeCabインストールWindows編(https://qiita.com/wanko5296/items/eeb7865ee71a7b9f1a3a)
+
+mecab-ipadic-NEologd github(https://github.com/neologd/mecab-ipadic-neologd)
+

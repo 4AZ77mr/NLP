@@ -1,7 +1,7 @@
 import os
 import sys
 
-sys.path.append("/home/mirai/実験/PycharmProjects/classifier/libsvm/python/")
+sys.path.append("libsvm/python/")
 
 from svm import svm_parameter, svm_problem
 import svmutil
@@ -10,7 +10,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn import svm
 
-from script.preprocessing import MecabTokenizer
+from preprocessing import MecabTokenizer
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import StratifiedKFold
 
@@ -136,11 +136,11 @@ def result(model, text_list, label_list, NFR, ratio, add_name, string, Normaliza
             docs_train = train
             docs_test = test
             siki = 9999
-        elif Normalization == True:
-            w1 = wordVecMaker(tokens=train, threshold=siki, nfr=NFR, count=count, classify=classification_model, path=add_path)
-            docs_train = w1.synonimTransfer(sentences=train, synonyms=w1.get_synonym())
-            # w2 = get_synonym(test, siki)
-            docs_test = w1.synonimTransfer(sentences=test, synonyms=w1.get_synonym())
+        # elif Normalization == True:
+        #     w1 = wordVecMaker(tokens=train, threshold=siki, nfr=NFR, count=count, classify=classification_model, path=add_path)
+        #     docs_train = w1.synonimTransfer(sentences=train, synonyms=w1.get_synonym())
+        #     # w2 = get_synonym(test, siki)
+        #     docs_test = w1.synonimTransfer(sentences=test, synonyms=w1.get_synonym())
 
         bow_corpus_train = [dictionary.doc2bow(d) for d in docs_train]
         bow_corpus_test = [dictionary.doc2bow(d) for d in docs_test]
@@ -276,7 +276,7 @@ if __name__ == "__main__":
         f.write("{}".format(os.getpid()))
 
     starttime = time.time()
-    text = pd.read_csv('厚生労働省.csv')
+    text = pd.read_csv('dataset.csv')
     text['要件'] = text['要件'].replace(r'[【】]', ' ', regex=True)
     text['要件'] = text['要件'].replace(r'[（）()]', ' ', regex=True)
     text['要件'] = text['要件'].replace(r'[［］\[\]]', ' ', regex=True)
@@ -322,7 +322,7 @@ if __name__ == "__main__":
     #             for ph in phrase:
     #                 parameter_list.append([csv_input, nfr, model, n, False, True, ph])
     
-    with Pool(processes=24) as p:
+    with Pool(processes=4) as p:
         p.map(wrapper, parameter_list)
 
     print(str(time.time() - starttime))

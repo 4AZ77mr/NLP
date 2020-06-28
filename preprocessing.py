@@ -1,14 +1,15 @@
 import re
-import sys
-import unicodedata
-import nltk
-from nltk.corpus import wordnet
+# import sys
+# import unicodedata
+# import nltk
+# from nltk.corpus import wordnet
 from sklearn.feature_extraction.text import CountVectorizer
-import pandas as pd
-import numpy as np
+# import pandas as pd
+# import numpy as np
 
 file = '-d /usr/local/lib/mecab/dic/mecab-ipadic-neologd'
 
+"""
 #クリーニング
 def clean_text(text):
     replaced_text = text.replace(r'[【】]', ' ', regex=True)
@@ -24,6 +25,7 @@ def clean_text(text):
     replaced_text = replaced_text.replace(r'^[0-9]+', '', regex=True)
     replaced_text = replaced_text.replace(r'[0-9]+', '0', regex=True)
     return replaced_text
+"""
 
 #形態素解析(mecab)
 class MecabTokenizer(object):
@@ -100,7 +102,7 @@ class MecabTokenizer(object):
         else:
             return word_list
 
-
+'''
 #形態素解析(nagisa)
 class NagisaTokenizer(object):
     def __init__(self, phrase=[]):
@@ -151,6 +153,7 @@ def lemmatize_term(term, pos=None):
         if pos == wordnet.ADJ_SAT:
             pos = wordnet.ADJ
     return nltk.WordNetLemmatizer().lemmatize(term, pos=pos)
+'''
 
 """
 この二つはネットから拾った．(https://qiita.com/chamao/items/7edaba62b120a660657eの辞書による方式)
