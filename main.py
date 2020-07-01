@@ -83,7 +83,7 @@ def word_count(model, NFR, text, labels, ratio, add_name, string, count, load_mo
     df0 = pd.DataFrame(c_0.most_common(), columns=[NFR, "単語数"])
     df1 = pd.DataFrame(c_1.most_common(), columns=[NFR, "単語数"])
     df = pd.concat([df, df0, df1], axis=1)
-    dir_path = '/home/mirai/実験/NFR分類/予測結果/' + model + '_10/' + load_model + '/' + add_name + '/' + NFR + '/' + str(ratio) + '/単語/'
+    dir_path = '実験/NFR分類/予測結果/' + model + '_10/' + load_model + '/' + add_name + '/' + NFR + '/' + str(ratio) + '/単語/'
     if not os.path.exists(dir_path):
         os.makedirs(dir_path)
     df.to_csv(dir_path + "単語数" + string + "(厚" + str(ratio) + ")_" + str(count) + ".csv")
@@ -174,7 +174,7 @@ def result(model, text_list, label_list, NFR, ratio, add_name, string, Normaliza
         f1_sum += f1_score_[1]
 
         df = pd.DataFrame({'要件': test, '正解': test_label, '予測': label_predict}, columns=['要件', '正解', '予測'])
-        dir_path = '/home/mirai/実験/NFR分類/予測結果/' + model + '_10/' + load_model + '/' + add_name + '/' + NFR + '/' + str(ratio) + '/'
+        dir_path = '実験/NFR分類/予測結果/' + model + '_10/' + load_model + '/' + add_name + '/' + NFR + '/' + str(ratio) + '/'
         if not os.path.exists(dir_path):
             os.makedirs(dir_path)
         df.to_csv(dir_path + '/' + str(siki) + '_' + str(count) + '(厚[' + string + ']).csv')
@@ -260,7 +260,7 @@ def main(csv_input, NFR, classification_model, ratio, Normalization=False, verba
     f1.append(f1_sum)
 
     df = pd.DataFrame({'Precision': pre, 'Recall': rec, 'F値': f1}, columns=["Precision", "Recall", "F値"])
-    dir_path = '/home/mirai/実験/NFR分類/閾値評価/' + classification_model + '_10/' + load_model + '/' + add_name + '/' + NFR + '/'
+    dir_path = '実験/NFR分類/閾値評価/' + classification_model + '_10/' + load_model + '/' + add_name + '/' + NFR + '/'
     if not os.path.exists(dir_path):
         os.makedirs(dir_path)
     df.to_csv(dir_path + '[' + add_name + ']' + string + '(厚)_' + str(ratio) + '.csv')
@@ -298,7 +298,8 @@ if __name__ == "__main__":
     csv_input = text
     NFR = ["機能適合性", "性能効率性", "互換性", "使用性", "信頼性", "セキュリティ", "保守性", "移植性"]
     classification_model = ['NB', 'K-NN', 'SMO']
-    num = [0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
+    #num = [0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
+    num = [1.0]
     normalization = [False]
     vern = [False]
     phrase = [[], ["名詞"], ["名詞", "動詞"]]
@@ -309,6 +310,7 @@ if __name__ == "__main__":
     #     for model in classification_model:
     #         for n in num:
     #             parameter_list.append([csv_input, nfr, model, n, False, False])
+    # def main(csv_input, NFR, classification_model, ratio, Normalization=False, verbalnoun=False, phrase=[], load_model='NO'):
 
     for nfr in NFR:
        for model in classification_model:
