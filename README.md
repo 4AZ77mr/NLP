@@ -16,7 +16,7 @@ preprocessing.pyは形態素解析を行っていて，それ以外の処理をm
 
 ## インストール方法
 #### LIBSVM
-以下のコマンドを実行していく．
+以下のコマンドを実行していく．（LIBSVMをインストールしても他のディレクトリには影響ありません．）
 
 まず，以下のコマンドでディレクトリの作成を行う．ディレクトリ名(buildの部分)は任意．
 ```bash
@@ -24,33 +24,33 @@ mkdir build
 ```
 次に，以下のコマンドで作成したディレクトリに移動する．
 ```bash
-cd build
+$ cd build
 ```
 そして，以下のコマンドを実行することでファイルをダウンロードする．
 ```bash
-wget http://www.csie.ntu.edu.tw/~cjlin/cgi-bin/libsvm.cgi?+http://www.csie.ntu.edu.tw/~cjlin/libsvm+tar.gz -O libsvm.tgz
+$ wget http://www.csie.ntu.edu.tw/~cjlin/cgi-bin/libsvm.cgi?+http://www.csie.ntu.edu.tw/~cjlin/libsvm+tar.gz -O libsvm.tgz
 ```
 以下のコマンドで解凍．
 ```bash
-tar zxvf libsvm.tgz
+$ tar zxvf libsvm.tgz
 ```
 上記のコマンドを実行した際に生成されたディレクトリに移動し，以下のコマンドでビルドし終了．
 ```bash
-make
+$ make
 ```
 
 #### gensim
 ターミナルで以下のコマンドを実行してgensimをインストール．
 ```bash
-pip install gensim
+$ pip install gensim
 ```
 
 ## 使い方
 ターミナルで以下を実行．
 ```bash
-git clone git@github.com:4AZ77mr/NLP.git
-cd NLP
-python main.py
+$ git clone git@github.com:4AZ77mr/NLP.git
+$ cd NLP
+$ python main.py
 ```
 ### 注意点
 並列処理をしているので，main.pyの最終行辺りにある **processes=** の値を自分の環境に合わせて設定してください．
